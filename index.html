@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liam Harris — Biomedical Engineering</title>
+  <meta name="description" content="Personal portfolio of Liam Harris — Biomedical Engineering student at CU Boulder, building biomedical devices and pursuing medicine.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-logo">liam<span class="accent">harris</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#resume">Resume</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero / Terminal Intro -->
+  <section id="hero">
+    <div class="terminal">
+      <div class="terminal-header">
+        <span class="terminal-dot red"></span>
+        <span class="terminal-dot yellow"></span>
+        <span class="terminal-dot green"></span>
+        <span class="terminal-title">liam@portfolio ~ %</span>
+      </div>
+      <div class="terminal-body">
+        <div class="terminal-line">
+          <span class="prompt">$</span>
+          <span class="typed-text" id="typedName"></span>
+          <span class="cursor" id="cursor">_</span>
+        </div>
+        <div class="terminal-output" id="terminalOutput">
+          <p class="output-line hidden" data-delay="0">Biomedical Engineering @ CU Boulder</p>
+          <p class="output-line hidden" data-delay="200">Pre-med | Class of 2028</p>
+          <p class="output-line hidden" data-delay="400">Building biomedical devices. Chasing medicine.</p>
+          <p class="output-line hidden" data-delay="600">Interested in wearable health tech, signal processing, and human physiology.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="section-container">
+      <h2 class="section-title"><span class="accent">//</span> about</h2>
+      <div class="about-content">
+        <p>I'm a sophomore studying Biomedical Engineering at the University of Colorado Boulder, on a pre-med track. I got into engineering because I wanted to understand how the body works — and then build things that help it work better.</p>
+        <p>Right now I'm focused on wearable biosensors and embedded systems. My main project is a real-time heart rate monitor built from scratch with an ESP32 and a pulse oximeter sensor. I design in SolidWorks, write firmware in C++, and build data pipelines in Python.</p>
+        <p>When I'm not in the lab or the library, I'm probably running trails, reading about cardiology, or tinkering with a new sensor breakout board.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects">
+    <div class="section-container">
+      <h2 class="section-title"><span class="accent">//</span> projects</h2>
+      <p class="section-subtitle">Click a book to open it.</p>
+      <div class="bookshelf">
+        <main class="books-row">
+
+          <!-- Project 1: Heart Rate Monitor -->
+          <label class="book-container">
+            <div class="book-wrapper"><div class="book" style="--book-color: #39ff14; --book-spine: #2bcc10;">
+              <div class="book-front"><span>Heart Rate Monitor</span></div>
+              <div class="book-back"></div>
+              <div class="book-side">
+                <span>Heart Rate Monitor</span>
+              </div>
+              <div class="book-side-back"></div>
+              <input type="radio" name="book" />
+            </div></div>
+            <div class="book-details">
+              <h3>Wearable Heart Rate Monitor</h3>
+              <p>Real-time BPM monitoring with an ESP32 microcontroller and MAX30102 pulse oximeter. Features an OLED display, WiFi web dashboard, and Python data logger for long-term heart rate analysis.</p>
+              <div class="book-tags">
+                <span>ESP32</span>
+                <span>MAX30102</span>
+                <span>C++</span>
+                <span>Python</span>
+                <span>WiFi</span>
+              </div>
+              <a href="https://github.com/williamjharris/wearable-heart-rate-monitor" target="_blank" rel="noopener" class="book-link">View on GitHub →</a>
+            </div>
+          </label>
+
+          <!-- Project 2: Placeholder -->
+          <label class="book-container">
+            <div class="book-wrapper"><div class="book" style="--book-color: #888; --book-spine: #666;">
+              <div class="book-front"><span>Project 2</span></div>
+              <div class="book-back"></div>
+              <div class="book-side">
+                <span>Coming Soon</span>
+              </div>
+              <div class="book-side-back"></div>
+              <input type="radio" name="book" />
+            </div></div>
+            <div class="book-details">
+              <h3>Coming Soon</h3>
+              <p>Another project is in the works. Check back later for updates.</p>
+              <div class="book-tags">
+                <span>TBD</span>
+              </div>
+            </div>
+          </label>
+
+          <!-- Project 3: Placeholder -->
+          <label class="book-container">
+            <div class="book-wrapper"><div class="book" style="--book-color: #888; --book-spine: #666;">
+              <div class="book-front"><span>Project 3</span></div>
+              <div class="book-back"></div>
+              <div class="book-side">
+                <span>Coming Soon</span>
+              </div>
+              <div class="book-side-back"></div>
+              <input type="radio" name="book" />
+            </div></div>
+            <div class="book-details">
+              <h3>Coming Soon</h3>
+              <p>Another project is in the works. Check back later for updates.</p>
+              <div class="book-tags">
+                <span>TBD</span>
+              </div>
+            </div>
+          </label>
+
+          <!-- Project 4: Placeholder -->
+          <label class="book-container">
+            <div class="book-wrapper"><div class="book" style="--book-color: #888; --book-spine: #666;">
+              <div class="book-front"><span>Project 4</span></div>
+              <div class="book-back"></div>
+              <div class="book-side">
+                <span>Coming Soon</span>
+              </div>
+              <div class="book-side-back"></div>
+              <input type="radio" name="book" />
+            </div></div>
+            <div class="book-details">
+              <h3>Coming Soon</h3>
+              <p>Another project is in the works. Check back later for updates.</p>
+              <div class="book-tags">
+                <span>TBD</span>
+              </div>
+            </div>
+          </label>
+
+        </main>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resume -->
+  <section id="resume">
+    <div class="section-container">
+      <h2 class="section-title"><span class="accent">//</span> resume</h2>
+      <div class="resume-content">
+        <p>Download my current resume below.</p>
+        <a href="assets/resume.pdf" download class="btn-download">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download Resume (PDF)
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact / Social Links -->
+  <section id="contact">
+    <div class="section-container">
+      <h2 class="section-title"><span class="accent">//</span> contact</h2>
+      <div class="social-links">
+        <a href="https://github.com/williamjharris" target="_blank" rel="noopener" class="social-item" data-social="GitHub">
+          <span class="social-name">GitHub</span>
+          <div class="social-icon-popup">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="48" height="48"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+          </div>
+        </a>
+        <a href="https://linkedin.com/in/williamjharris" target="_blank" rel="noopener" class="social-item" data-social="LinkedIn">
+          <span class="social-name">LinkedIn</span>
+          <div class="social-icon-popup">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="48" height="48"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </div>
+        </a>
+        <a href="mailto:liam.harris@colorado.edu" class="social-item" data-social="Email">
+          <span class="social-name">Email</span>
+          <div class="social-icon-popup">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="48" height="48"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 Liam Harris. Built with plain HTML, CSS, and JS.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

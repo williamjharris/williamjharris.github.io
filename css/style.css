@@ -1,0 +1,746 @@
+/* ========================================
+   VARIABLES & RESET
+   ======================================== */
+
+:root {
+  --bg: #0a0a0a;
+  --text: #e0e0e0;
+  --heading: #ffffff;
+  --accent: #39ff14;
+  --accent-dim: rgba(57, 255, 20, 0.3);
+  --surface: #111111;
+  --border: #222222;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* ========================================
+   NAVIGATION
+   ======================================== */
+
+#navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 1rem 0;
+  transition: background 0.3s, backdrop-filter 0.3s;
+}
+
+#navbar.scrolled {
+  background: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--heading);
+  letter-spacing: -0.5px;
+}
+
+.nav-logo .accent {
+  color: var(--accent);
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text);
+  transition: color 0.2s;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.3s;
+}
+
+.nav-links a:hover {
+  color: var(--accent);
+  opacity: 1;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* Mobile hamburger */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--text);
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.nav-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.nav-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+@media (max-width: 768px) {
+  .nav-toggle {
+    display: flex;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 60%;
+    height: 100vh;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    transition: right 0.4s ease;
+  }
+
+  .nav-links.open {
+    right: 0;
+  }
+
+  .nav-links a {
+    font-size: 1.1rem;
+  }
+}
+
+/* ========================================
+   SECTIONS (shared)
+   ======================================== */
+
+section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 2rem;
+}
+
+.section-container {
+  max-width: 900px;
+  width: 100%;
+}
+
+.section-title {
+  font-family: var(--font-mono);
+  font-size: 1.8rem;
+  color: var(--heading);
+  margin-bottom: 2rem;
+  font-weight: 700;
+}
+
+.section-title .accent {
+  color: var(--accent);
+}
+
+.section-subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: -1rem;
+  margin-bottom: 2.5rem;
+}
+
+/* ========================================
+   HERO — TERMINAL
+   ======================================== */
+
+#hero {
+  min-height: 100vh;
+  padding-top: 5rem;
+}
+
+.terminal {
+  width: 100%;
+  max-width: 700px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--surface);
+  box-shadow: 0 0 40px rgba(57, 255, 20, 0.05);
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: #1a1a1a;
+  border-bottom: 1px solid var(--border);
+}
+
+.terminal-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.terminal-dot.red { background: #ff5f57; }
+.terminal-dot.yellow { background: #febc2e; }
+.terminal-dot.green { background: #28c840; }
+
+.terminal-title {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: #666;
+  margin-left: 8px;
+}
+
+.terminal-body {
+  padding: 2rem;
+}
+
+.terminal-line {
+  font-family: var(--font-mono);
+  font-size: 1.3rem;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+}
+
+.prompt {
+  color: var(--accent);
+  margin-right: 0.5rem;
+}
+
+.typed-text {
+  color: var(--heading);
+}
+
+.cursor {
+  color: var(--accent);
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.terminal-output {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.output-line {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text);
+  opacity: 0;
+  transform: translateY(5px);
+  transition: opacity 0.4s, transform 0.4s;
+}
+
+.output-line.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.output-line.hidden {
+  opacity: 0;
+}
+
+/* ========================================
+   ABOUT
+   ======================================== */
+
+.about-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.about-content p {
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+/* ========================================
+   PROJECTS — 3D BOOKSHELF
+   ======================================== */
+
+.bookshelf {
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+  padding: 2rem 0;
+}
+
+.books-row {
+  display: flex;
+  perspective: 3500px;
+  align-items: flex-end;
+}
+
+.book-container {
+  --width: 40px;
+  --height: calc(var(--width) * 4.5);
+  --depth: calc(var(--width) * 3);
+  --padding: 24px;
+
+  width: calc(var(--width) + var(--padding));
+  height: var(--height);
+  position: relative;
+  transition: width 0.4s ease;
+  cursor: pointer;
+}
+
+.book-container .book-wrapper {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  transform-style: preserve-3d;
+  transform: translateZ(calc(var(--depth) / -2));
+  transition: transform 0.4s ease;
+}
+
+.book-container:hover .book-wrapper {
+  transform: translateY(-10px) translateZ(calc(var(--depth) / -2));
+}
+
+.book-container:has(input:checked) {
+  width: calc(var(--depth) + var(--padding) + 280px);
+}
+
+.book-container:has(input:checked) .book-wrapper {
+  transform: translateZ(0);
+}
+
+.book {
+  width: var(--width);
+  height: var(--height);
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.4s ease;
+}
+
+.book > div {
+  position: absolute;
+  transition: background-color 0.4s;
+}
+
+/* Front and back faces */
+.book-front,
+.book-back {
+  background: #eee;
+  height: var(--height);
+  width: var(--width);
+}
+
+.book-front {
+  transform: rotateY(0deg) translateZ(calc(var(--depth) / 2));
+}
+
+.book-front span {
+  display: block;
+  transform: rotateZ(90deg);
+  margin-top: 24px;
+  white-space: nowrap;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: #555;
+  font-weight: 500;
+}
+
+.book-back {
+  transform: rotateY(180deg) translateZ(calc(var(--depth) / 2));
+}
+
+/* Side faces */
+.book-side,
+.book-side-back {
+  height: var(--height);
+  width: var(--depth);
+  left: calc(var(--width) * -1);
+}
+
+.book-side {
+  background: var(--book-color, #888);
+  transform: rotateY(90deg) translateZ(calc(var(--width) / 2));
+}
+
+.book-side span {
+  display: block;
+  margin-top: 24px;
+  white-space: nowrap;
+  text-align: center;
+  font-size: 13px;
+  font-family: var(--font-mono);
+  color: #fff;
+  font-weight: 500;
+}
+
+.book-side-back {
+  background: var(--book-spine, #666);
+  transform: rotateY(-90deg) translateZ(calc(var(--width) / 2));
+}
+
+.book > input {
+  position: absolute;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+}
+
+/* When a book is checked/opened */
+.book:has(> input:checked) {
+  transform: translateZ(calc(var(--width) / -2)) rotateY(-90deg);
+}
+
+.book:has(> input:checked) .book-side,
+.book:has(> input:checked) .book-side-back {
+  background: #fff;
+}
+
+.book:has(> input:checked) .book-front,
+.book:has(> input:checked) .book-back {
+  background: var(--book-color, #888);
+}
+
+/* Book details panel (appears when opened) */
+.book-details {
+  position: absolute;
+  left: 150px;
+  top: -20px;
+  width: 240px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  z-index: 100;
+  background: var(--bg);
+  padding: 1rem 1rem 1rem 1rem;
+}
+
+.book-container:has(input:checked) .book-details {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.book-details h3 {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--heading);
+  font-weight: 700;
+}
+
+.book-details p {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.book-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.book-tags span {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  padding: 2px 8px;
+  border: 1px solid var(--accent-dim);
+  border-radius: 3px;
+  color: var(--accent);
+}
+
+.book-link {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--accent);
+  margin-top: 0.3rem;
+}
+
+/* Mobile bookshelf */
+@media (max-width: 768px) {
+  .books-row {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    perspective: none;
+  }
+
+  .book-container {
+    --width: 35px;
+    transform: none;
+  }
+
+  .book-container:hover {
+    transform: translateY(-10px);
+  }
+
+  .book-container:has(input:checked) {
+    width: 100%;
+    max-width: 350px;
+    flex-direction: column;
+    height: auto;
+    min-height: var(--height);
+  }
+
+  .book-details {
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding-top: 1rem;
+  }
+}
+
+/* ========================================
+   RESUME
+   ======================================== */
+
+.resume-content {
+  text-align: center;
+}
+
+.resume-content p {
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+}
+
+.btn-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--bg);
+  background: var(--accent);
+  padding: 0.8rem 2rem;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: box-shadow 0.3s, transform 0.2s;
+}
+
+.btn-download:hover {
+  opacity: 1;
+  box-shadow: 0 0 20px var(--accent-dim);
+  transform: translateY(-2px);
+}
+
+.btn-download svg {
+  flex-shrink: 0;
+}
+
+/* ========================================
+   CONTACT — ANIMATED SOCIAL LINKS
+   ======================================== */
+
+#contact {
+  min-height: auto;
+  padding: 5rem 2rem 3rem;
+}
+
+.social-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.social-item {
+  position: relative;
+  padding: 0.6rem 1.5rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.social-item .social-name {
+  display: block;
+  font-size: 1.1rem;
+  color: var(--heading);
+  font-family: var(--font-mono);
+  transition: color 0.2s;
+}
+
+.social-item:hover .social-name {
+  color: var(--accent);
+}
+
+/* When any item is hovered, dim the siblings */
+.social-links:hover .social-item {
+  opacity: 0.4;
+}
+
+.social-links:hover .social-item:hover {
+  opacity: 1;
+}
+
+/* Icon popup on hover */
+.social-icon-popup {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  pointer-events: none;
+  opacity: 0;
+  filter: blur(3px);
+  transition: opacity 0.25s, transform 0.25s, filter 0.25s;
+}
+
+.social-icon-popup svg {
+  width: 48px;
+  height: 48px;
+  color: var(--accent);
+  fill: var(--accent);
+}
+
+/* Email icon is stroke-based, not fill */
+.social-item[data-social="Email"] .social-icon-popup svg {
+  fill: none;
+  stroke: var(--accent);
+}
+
+.social-item:hover .social-icon-popup {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateX(-50%) translateY(-10px);
+  animation: iconPop 0.3s ease;
+}
+
+@keyframes iconPop {
+  0% {
+    opacity: 0;
+    filter: blur(3px);
+    transform: translateX(-50%) translateY(0px) rotate(var(--icon-rotation, -5deg));
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateX(-50%) translateY(-10px) rotate(0deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .social-links {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .social-icon-popup {
+    display: none;
+  }
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+
+footer {
+  text-align: center;
+  padding: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+footer p {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: #555;
+}
+
+/* ========================================
+   SCROLL ANIMATIONS
+   ======================================== */
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
