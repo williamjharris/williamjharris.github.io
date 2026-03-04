@@ -90,11 +90,20 @@ fadeElements.forEach(el => {
 });
 
 // ========================================
-// BOOKSHELF — deselect on click outside
+// BOOKSHELF — click to open, click outside to close
 // ========================================
 
+document.querySelectorAll('.container').forEach(container => {
+  container.addEventListener('click', (e) => {
+    const input = container.querySelector('input[type="radio"]');
+    if (input) {
+      input.checked = true;
+    }
+  });
+});
+
 document.addEventListener('click', (e) => {
-  if (!e.target.closest('.book-container')) {
+  if (!e.target.closest('.container')) {
     document.querySelectorAll('.book input[type="radio"]').forEach(input => {
       input.checked = false;
     });
