@@ -194,6 +194,11 @@ section {
   align-items: center;
   justify-content: center;
   padding: 5rem 2rem;
+  overflow: visible;
+}
+
+#projects {
+  padding-bottom: 8rem;
 }
 
 .section-container {
@@ -342,8 +347,9 @@ section {
 .bookshelf {
   display: flex;
   justify-content: center;
-  overflow-x: auto;
+  overflow: visible;
   padding: 2rem 0;
+  min-height: 300px;
 }
 
 .books-row {
