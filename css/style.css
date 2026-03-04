@@ -357,6 +357,8 @@ main {
 
   width: calc(var(--width) + var(--padding));
   height: var(--height);
+  position: relative;
+  cursor: pointer;
 
   display: grid;
   place-items: center;
@@ -461,6 +463,68 @@ main {
       background: #777;
     }
   }
+}
+
+/* Widen container when book is open to fit details */
+.container:has(input:checked) {
+  width: calc(var(--depth) + var(--padding) + 280px);
+}
+
+/* Book details panel */
+.book-details {
+  position: absolute;
+  left: 150px;
+  top: -20px;
+  width: 240px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease 0.6s;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  z-index: 100;
+  background: var(--bg);
+  padding: 1rem;
+}
+
+.container:has(input:checked) .book-details {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.book-details h3 {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--heading);
+  font-weight: 700;
+}
+
+.book-details p {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.book-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.book-tags span {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  padding: 2px 8px;
+  border: 1px solid var(--accent-dim);
+  border-radius: 3px;
+  color: var(--accent);
+}
+
+.book-link {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--accent);
+  margin-top: 0.3rem;
 }
 
 /* ========================================
