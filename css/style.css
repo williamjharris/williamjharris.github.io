@@ -420,7 +420,7 @@ section {
   }
 
   & .book-front {
-    background: #777;
+    background: #eee;
     transform: rotateY(0deg) translateZ(calc(var(--depth) / 2));
 
     & span {
@@ -430,12 +430,12 @@ section {
       text-wrap: nowrap;
       font-size: 12px;
       font-family: var(--font-mono);
-      color: #fff;
+      color: #555;
     }
   }
 
   & .book-back {
-    background: #777;
+    background: #eee;
     transform: rotateY(180deg) translateZ(calc(var(--depth) / 2));
   }
 
@@ -485,6 +485,18 @@ section {
     }
   }
 }
+
+/* Default 3D tilt — left books tilt left, right books tilt right, center flat */
+.book-container:nth-child(1) .book { transform: rotateY(-5deg); }
+.book-container:nth-child(2) .book { transform: rotateY(-3.5deg); }
+.book-container:nth-child(3) .book { transform: rotateY(-2deg); }
+.book-container:nth-child(4) .book { transform: rotateY(-1deg); }
+.book-container:nth-child(5) .book { transform: rotateY(0deg); }
+.book-container:nth-child(6) .book { transform: rotateY(0deg); }
+.book-container:nth-child(7) .book { transform: rotateY(1deg); }
+.book-container:nth-child(8) .book { transform: rotateY(2deg); }
+.book-container:nth-child(9) .book { transform: rotateY(3.5deg); }
+.book-container:nth-child(10) .book { transform: rotateY(5deg); }
 
 /* Book details panel (appears when opened) */
 .book-details {
