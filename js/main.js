@@ -30,7 +30,7 @@ navLinks.querySelectorAll('a').forEach(link => {
 const typedEl = document.getElementById('typedName');
 const cursorEl = document.getElementById('cursor');
 const outputLines = document.querySelectorAll('.output-line');
-const textToType = "Hi, I'm Liam.";
+const textToType = "Hi, I'm William.";
 let charIndex = 0;
 
 function typeCharacter() {
