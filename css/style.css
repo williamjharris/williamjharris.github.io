@@ -344,33 +344,17 @@ section {
    PROJECTS — 3D BOOKSHELF
    ======================================== */
 
-.bookshelf {
-  display: flex;
-  justify-content: center;
-  overflow: visible;
-  padding: 2rem 0;
-  min-height: 300px;
-}
-
-.books-row {
+main {
   display: flex;
   perspective: 3500px;
-  align-items: flex-end;
 }
 
-.book-container {
+.container {
   --width: 35px;
   --height: calc(var(--width) * 4);
   --depth: calc(var(--width) * 3);
   --padding: 20px;
 
-  width: calc(var(--width) + var(--padding));
-  height: var(--height);
-  position: relative;
-  cursor: pointer;
-}
-
-.book-container .book-wrapper {
   width: calc(var(--width) + var(--padding));
   height: var(--height);
 
@@ -392,10 +376,6 @@ section {
   }
 }
 
-.book-container:has(input:checked) {
-  width: calc(var(--depth) + var(--padding) + 280px);
-}
-
 .book {
   color: #777;
 
@@ -407,20 +387,19 @@ section {
 
   transition: transform 0.3s;
 
-  & > div {
+  & div {
     position: absolute;
     transition: background-color 0.3s;
   }
 
-  /* front and back (visible as "spines" on the shelf) */
-  & .book-front,
-  & .book-back {
+  /* front and back */
+  & div:nth-child(-n+2) {
+    background: #eee;
     height: var(--height);
     width: var(--width);
   }
 
-  & .book-front {
-    background: #eee;
+  & div:nth-child(1) {
     transform: rotateY(0deg) translateZ(calc(var(--depth) / 2));
 
     & span {
@@ -429,26 +408,22 @@ section {
       margin-top: 20px;
       text-wrap: nowrap;
       font-size: 12px;
-      font-family: var(--font-mono);
-      color: #555;
     }
   }
 
-  & .book-back {
-    background: #eee;
+  & div:nth-child(2) {
     transform: rotateY(180deg) translateZ(calc(var(--depth) / 2));
   }
 
-  /* left and right (page edges) */
-  & .book-side,
-  & .book-side-back {
-    background: #eee;
+  /* left and right */
+  & div:nth-child(3), & div:nth-child(4) {
+    background: #777;
     height: var(--height);
     width: var(--depth);
     left: calc(var(--width) * -1);
   }
 
-  & .book-side {
+  & div:nth-child(3) {
     transform: rotateY(90deg) translateZ(calc(var(--width) / 2));
 
     & span {
@@ -457,12 +432,10 @@ section {
       text-wrap: nowrap;
       text-align: center;
       font-size: 14px;
-      font-family: var(--font-mono);
-      color: #555;
     }
   }
 
-  & .book-side-back {
+  & div:nth-child(4) {
     transform: rotateY(-90deg) translateZ(calc(var(--width) / 2));
   }
 
@@ -475,118 +448,18 @@ section {
     opacity: 0;
   }
 
-  &:has(> input:checked) {
+  &:has(>input:checked) {
     transform: translateZ(calc(var(--width) / -2)) rotateY(-90deg);
 
-    /* page edges become white when open */
-    & .book-side,
-    & .book-side-back {
+    /* left and right */
+    & div:nth-child(3), & div:nth-child(4) {
       background: #fff;
     }
-  }
-}
 
-/* Default 3D tilt — left books tilt left, right books tilt right, center flat */
-.book-container:nth-child(1) .book { transform: rotateY(-5deg); }
-.book-container:nth-child(2) .book { transform: rotateY(-3.5deg); }
-.book-container:nth-child(3) .book { transform: rotateY(-2deg); }
-.book-container:nth-child(4) .book { transform: rotateY(-1deg); }
-.book-container:nth-child(5) .book { transform: rotateY(0deg); }
-.book-container:nth-child(6) .book { transform: rotateY(0deg); }
-.book-container:nth-child(7) .book { transform: rotateY(1deg); }
-.book-container:nth-child(8) .book { transform: rotateY(2deg); }
-.book-container:nth-child(9) .book { transform: rotateY(3.5deg); }
-.book-container:nth-child(10) .book { transform: rotateY(5deg); }
-
-/* Book details panel (appears when opened) */
-.book-details {
-  position: absolute;
-  left: 150px;
-  top: -20px;
-  width: 240px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.5s ease 0.6s;
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  z-index: 100;
-  background: var(--bg);
-  padding: 1rem 1rem 1rem 1rem;
-}
-
-.book-container:has(input:checked) .book-details {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.book-details h3 {
-  font-family: var(--font-mono);
-  font-size: 0.95rem;
-  color: var(--heading);
-  font-weight: 700;
-}
-
-.book-details p {
-  font-size: 0.8rem;
-  line-height: 1.5;
-  color: var(--text);
-}
-
-.book-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-}
-
-.book-tags span {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  padding: 2px 8px;
-  border: 1px solid var(--accent-dim);
-  border-radius: 3px;
-  color: var(--accent);
-}
-
-.book-link {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: var(--accent);
-  margin-top: 0.3rem;
-}
-
-/* Mobile bookshelf */
-@media (max-width: 768px) {
-  .books-row {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-    perspective: none;
-  }
-
-  .book-container {
-    --width: 35px;
-    transform: none;
-  }
-
-  .book-container:hover {
-    transform: translateY(-10px);
-  }
-
-  .book-container:has(input:checked) {
-    width: 100%;
-    max-width: 350px;
-    flex-direction: column;
-    height: auto;
-    min-height: var(--height);
-  }
-
-  .book-details {
-    position: relative;
-    left: 0;
-    top: 0;
-    width: 100%;
-    padding-top: 1rem;
+    /* front and back */
+    & div:nth-child(-n+2) {
+      background: #777;
+    }
   }
 }
 
