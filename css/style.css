@@ -371,11 +371,6 @@ section {
 }
 
 .book-container .book-wrapper {
-  --width: 35px;
-  --height: calc(var(--width) * 4);
-  --depth: calc(var(--width) * 3);
-  --padding: 20px;
-
   width: calc(var(--width) + var(--padding));
   height: var(--height);
 
@@ -417,15 +412,15 @@ section {
     transition: background-color 0.3s;
   }
 
-  /* front and back */
+  /* front and back (visible as "spines" on the shelf) */
   & .book-front,
   & .book-back {
-    background: #eee;
     height: var(--height);
     width: var(--width);
   }
 
   & .book-front {
+    background: #777;
     transform: rotateY(0deg) translateZ(calc(var(--depth) / 2));
 
     & span {
@@ -435,25 +430,25 @@ section {
       text-wrap: nowrap;
       font-size: 12px;
       font-family: var(--font-mono);
-      color: #555;
+      color: #fff;
     }
   }
 
   & .book-back {
+    background: #777;
     transform: rotateY(180deg) translateZ(calc(var(--depth) / 2));
   }
 
-  /* left and right (spine faces) */
+  /* left and right (page edges) */
   & .book-side,
   & .book-side-back {
-    background: #777;
+    background: #eee;
     height: var(--height);
     width: var(--depth);
     left: calc(var(--width) * -1);
   }
 
   & .book-side {
-    background: var(--book-color, #777);
     transform: rotateY(90deg) translateZ(calc(var(--width) / 2));
 
     & span {
@@ -463,12 +458,11 @@ section {
       text-align: center;
       font-size: 14px;
       font-family: var(--font-mono);
-      color: #fff;
+      color: #555;
     }
   }
 
   & .book-side-back {
-    background: var(--book-spine, #666);
     transform: rotateY(-90deg) translateZ(calc(var(--width) / 2));
   }
 
@@ -484,44 +478,12 @@ section {
   &:has(> input:checked) {
     transform: translateZ(calc(var(--width) / -2)) rotateY(-90deg);
 
-    /* left and right */
+    /* page edges become white when open */
     & .book-side,
     & .book-side-back {
       background: #fff;
     }
-
-    /* front and back */
-    & .book-front,
-    & .book-back {
-      background: var(--book-color, #777);
-    }
   }
-}
-
-/* Default 3D tilt — outer books rotate more, inner less */
-.book-container:nth-child(1) .book,
-.book-container:nth-child(10) .book {
-  transform: rotateY(-22deg);
-}
-
-.book-container:nth-child(2) .book,
-.book-container:nth-child(9) .book {
-  transform: rotateY(-18deg);
-}
-
-.book-container:nth-child(3) .book,
-.book-container:nth-child(8) .book {
-  transform: rotateY(-14deg);
-}
-
-.book-container:nth-child(4) .book,
-.book-container:nth-child(7) .book {
-  transform: rotateY(-10deg);
-}
-
-.book-container:nth-child(5) .book,
-.book-container:nth-child(6) .book {
-  transform: rotateY(-6deg);
 }
 
 /* Book details panel (appears when opened) */
