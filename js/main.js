@@ -156,8 +156,8 @@ function revealOutputLines() {
   });
 }
 
-// Start typing after a short delay
-setTimeout(typeCharacter, 600);
+// Start typing after a short delay (only on pages with the terminal)
+if (typedEl) setTimeout(typeCharacter, 600);
 
 // ========================================
 // SOCIAL LINKS — random rotation on hover
@@ -197,10 +197,19 @@ fadeElements.forEach(el => {
 
 document.querySelectorAll('.container').forEach(container => {
   container.addEventListener('click', (e) => {
+    // Don't intercept clicks on links — let them navigate
+    if (e.target.closest('a')) return;
     const input = container.querySelector('input[type="radio"]');
     if (input) {
       input.checked = true;
     }
+  });
+});
+
+// Prevent label from swallowing link clicks inside book-details
+document.querySelectorAll('.book-details a').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.stopPropagation();
   });
 });
 

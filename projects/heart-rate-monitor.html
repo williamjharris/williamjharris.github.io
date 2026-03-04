@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wearable Heart Rate Monitor — William Harris</title>
+  <meta name="description" content="Real-time BPM monitoring with ESP32 and MAX30102 — detailed project writeup by William Harris.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <!-- Animated WebGL Background -->
+  <div id="webgl-bg">
+    <canvas id="bgCanvas"></canvas>
+  </div>
+
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="../index.html#hero" class="nav-logo" data-text="williamharris">william<span class="accent">harris</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+        <li><a href="../index.html#resume">Resume</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Project Content -->
+  <div class="project-page">
+    <div class="project-hero">
+      <a href="../index.html#projects" class="back-link">&larr; Back to Projects</a>
+      <h1>Wearable Heart Rate Monitor</h1>
+      <p class="project-subtitle">Real-time BPM monitoring with an ESP32 microcontroller and MAX30102 pulse oximeter sensor, featuring a WiFi web dashboard and Python data logger.</p>
+      <div class="project-meta">
+        <span class="project-date">2025 — Present</span>
+        <div class="project-tags">
+          <span>ESP32</span>
+          <span>MAX30102</span>
+          <span>C++</span>
+          <span>Python</span>
+          <span>WiFi</span>
+        </div>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/williamjharris/wearable-heart-rate-monitor" target="_blank" rel="noopener">View on GitHub &rarr;</a>
+      </div>
+    </div>
+
+    <div class="project-body">
+      <h2>Overview</h2>
+      <p>This project is a wearable heart rate monitor built from scratch using an ESP32 microcontroller and MAX30102 pulse oximeter sensor. It reads real-time BPM data and displays it on a 0.96" OLED screen, while simultaneously serving a live web dashboard over WiFi and logging data to a Python script for long-term analysis.</p>
+
+      <h2>Hardware</h2>
+      <ul>
+        <li>ESP32 DevKit V1 — WiFi-enabled microcontroller</li>
+        <li>MAX30102 — Pulse oximeter and heart rate sensor (I2C)</li>
+        <li>SSD1306 0.96" OLED — Real-time BPM display</li>
+        <li>3.7V LiPo battery with TP4056 charging module</li>
+      </ul>
+
+      <h2>Software Architecture</h2>
+      <p>The firmware is written in C++ using the Arduino framework. It reads raw IR data from the MAX30102, applies a peak-detection algorithm to calculate BPM, and pushes updates to three outputs simultaneously: the OLED display, a WebSocket-based web dashboard, and a serial data stream consumed by the Python logger.</p>
+
+      <h2>Web Dashboard</h2>
+      <p>The ESP32 hosts a lightweight web server that serves an HTML/JS dashboard over WiFi. The dashboard connects via WebSocket for real-time BPM updates and renders a live-updating chart of heart rate over time.</p>
+
+      <h2>Python Data Logger</h2>
+      <p>A companion Python script connects to the ESP32's serial output and logs timestamped BPM readings to a CSV file. This enables long-term heart rate trend analysis using pandas and matplotlib.</p>
+
+      <!-- Add more content, images, and details here -->
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 William Harris. Built with plain HTML, CSS, and JS.</p>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

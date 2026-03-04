@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Website — William Harris</title>
+  <meta name="description" content="A portfolio site built from scratch with HTML, CSS, and vanilla JS — detailed project writeup by William Harris.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <!-- Animated WebGL Background -->
+  <div id="webgl-bg">
+    <canvas id="bgCanvas"></canvas>
+  </div>
+
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="../index.html#hero" class="nav-logo" data-text="williamharris">william<span class="accent">harris</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+        <li><a href="../index.html#resume">Resume</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Project Content -->
+  <div class="project-page">
+    <div class="project-hero">
+      <a href="../index.html#projects" class="back-link">&larr; Back to Projects</a>
+      <h1>Personal Portfolio Website</h1>
+      <p class="project-subtitle">A portfolio site built from scratch with plain HTML, CSS, and vanilla JavaScript. No frameworks, no dependencies — just the fundamentals.</p>
+      <div class="project-meta">
+        <span class="project-date">2025 — Present</span>
+        <div class="project-tags">
+          <span>HTML</span>
+          <span>CSS</span>
+          <span>JavaScript</span>
+          <span>GitHub Pages</span>
+        </div>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/williamjharris/williamjharris.github.io" target="_blank" rel="noopener">View on GitHub &rarr;</a>
+      </div>
+    </div>
+
+    <div class="project-body">
+      <h2>Overview</h2>
+      <p>This is the site you're looking at right now. I built it to showcase my projects and skills as a biomedical engineering student, and as a learning exercise in front-end web development. Everything is hand-written — no React, no Tailwind, no build tools.</p>
+
+      <h2>Features</h2>
+      <ul>
+        <li>Terminal-style typing animation on the landing page</li>
+        <li>3D CSS bookshelf for project display with click-to-open interaction</li>
+        <li>WebGL animated background (topographic neon grid)</li>
+        <li>Animated social links with icon popups</li>
+        <li>Fully responsive design for mobile and desktop</li>
+        <li>Hosted on GitHub Pages with custom domain</li>
+      </ul>
+
+      <h2>Technical Details</h2>
+      <p>The WebGL background uses a custom fragment shader that generates a procedural topographic grid effect with noise-based terrain. The bookshelf is built entirely with CSS 3D transforms — each book is a six-sided box that rotates open on click, revealing a details panel.</p>
+
+      <h2>What I Learned</h2>
+      <p>Building a site without frameworks forced me to deeply understand CSS layout, 3D transforms, and vanilla JavaScript DOM manipulation. Writing the WebGL shader from scratch was a great introduction to GPU programming and GLSL.</p>
+
+      <!-- Add more content, images, and details here -->
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 William Harris. Built with plain HTML, CSS, and JS.</p>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
