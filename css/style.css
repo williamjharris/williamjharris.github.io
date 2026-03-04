@@ -421,6 +421,8 @@ section {
   font-family: var(--font-mono);
   color: #555;
   font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .book-back {
@@ -443,12 +445,22 @@ section {
 .book-side span {
   display: block;
   margin-top: 24px;
-  white-space: nowrap;
   text-align: center;
-  font-size: 13px;
+  font-size: 11px;
   font-family: var(--font-mono);
   color: #fff;
   font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  transition: color 0.4s;
+}
+
+.book:has(> input:checked) .book-side span {
+  color: #222;
 }
 
 .book-side-back {
