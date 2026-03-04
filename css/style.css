@@ -409,6 +409,7 @@ main {
   & div {
     position: absolute;
     transition: background-color 0.3s;
+    overflow: hidden;
   }
 
   /* front and back */
@@ -448,9 +449,9 @@ main {
     & span {
       display: block;
       margin-top: 20px;
-      text-wrap: nowrap;
       text-align: center;
-      font-size: 14px;
+      font-size: 11px;
+      padding: 0 4px;
     }
   }
 
