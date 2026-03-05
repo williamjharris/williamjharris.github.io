@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bone Mechanical Forces — Case Study Analysis — William Harris</title>
+  <meta name="description" content="Analysis of a 2014 case study on long-term skeletal benefits of early physical activity, with data visualizations.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    .chart-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+    @media (max-width: 768px) {
+      .chart-grid { grid-template-columns: 1fr; }
+    }
+    .chart-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(57,255,20,0.15);
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+    .chart-card h3 {
+      font-family: 'JetBrains Mono', monospace;
+      color: #39ff14;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin: 0 0 0.4rem 0;
+    }
+    .chart-card p.chart-caption {
+      font-size: 0.8rem;
+      color: #888;
+      margin: 0 0 1.2rem 0;
+      line-height: 1.5;
+    }
+    .chart-wrapper {
+      position: relative;
+      height: 280px;
+    }
+    .chart-wrapper-tall {
+      position: relative;
+      height: 340px;
+    }
+    .chart-full {
+      grid-column: 1 / -1;
+    }
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    @media (max-width: 600px) {
+      .stat-row { grid-template-columns: repeat(2, 1fr); }
+    }
+    .stat-card {
+      background: rgba(57,255,20,0.04);
+      border: 1px solid rgba(57,255,20,0.2);
+      border-radius: 8px;
+      padding: 1.2rem 1rem;
+      text-align: center;
+    }
+    .stat-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #39ff14;
+      display: block;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      color: #888;
+      margin-top: 0.3rem;
+      line-height: 1.4;
+    }
+    .pdf-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin: 1.5rem 0;
+    }
+    .pdf-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      border: 1px solid rgba(57,255,20,0.4);
+      border-radius: 6px;
+      color: #39ff14;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      text-decoration: none;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .pdf-btn:hover {
+      background: rgba(57,255,20,0.08);
+      border-color: #39ff14;
+    }
+    .finding-block {
+      border-left: 3px solid #39ff14;
+      padding: 0.8rem 1.2rem;
+      margin: 1rem 0;
+      background: rgba(57,255,20,0.03);
+      border-radius: 0 6px 6px 0;
+    }
+    .finding-block.lost {
+      border-left-color: #ff4444;
+      background: rgba(255,68,68,0.03);
+    }
+    .finding-block strong {
+      color: #39ff14;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+    }
+    .finding-block.lost strong {
+      color: #ff6666;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="webgl-bg">
+    <canvas id="bgCanvas"></canvas>
+  </div>
+
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="../index.html#hero" class="nav-logo" data-text="williamharris">william<span class="accent">harris</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+        <li><a href="../index.html#resume">Resume</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="project-page">
+    <div class="project-hero">
+      <a href="../index.html#projects" class="back-link">&larr; Back to Projects</a>
+      <h1>Bone Mechanical Forces — Case Study Analysis</h1>
+      <p class="project-subtitle">Data visualization and analysis of a landmark case study on long-term skeletal adaptation to mechanical loading — examining whether bone benefits from youth physical activity persist into the tenth decade of life.</p>
+      <div class="project-meta">
+        <span class="project-date">Spring 2026 — BMEN 2010</span>
+        <div class="project-tags">
+          <span>Biomechanics</span>
+          <span>Bone Biology</span>
+          <span>pQCT</span>
+          <span>DXA</span>
+          <span>Case Study</span>
+        </div>
+      </div>
+      <div class="pdf-links">
+        <a href="../assets/bone-case-study/annotated-CaseStudy01.pdf" target="_blank" class="pdf-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Annotated Case Study
+        </a>
+        <a href="../assets/bone-case-study/Bone_mechanical forces.pdf" target="_blank" class="pdf-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Source Paper (Warden &amp; Mantila Roosa, 2014)
+        </a>
+      </div>
+    </div>
+
+    <div class="project-body">
+
+      <h2>Overview</h2>
+      <p>This case study (Warden &amp; Mantila Roosa, 2014, <em>J Musculoskelet Neuronal Interact</em>) examines a 94-year-old former MLB pitcher who threw left-handed professionally but was right-hand dominant in all other activities. This unique setup allowed researchers to isolate the long-term skeletal effects of throwing-related mechanical loading from simple arm dominance — providing a rare within-subject controlled look at bone adaptation across nine decades of life.</p>
+      <p>Using peripheral quantitative computed tomography (pQCT) at the midshaft humerus, the study compared cortical bone mass, size, and estimated strength between his throwing and nonthrowing arms after 55 years of retirement.</p>
+
+      <!-- Subject Stats -->
+      <h2>Subject Characteristics</h2>
+      <div class="stat-row">
+        <div class="stat-card">
+          <span class="stat-value">94</span>
+          <span class="stat-label">Age at assessment (years)</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value">33</span>
+          <span class="stat-label">Total years throwing</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value">55</span>
+          <span class="stat-label">Years since retirement</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value">1,776</span>
+          <span class="stat-label">Professional games played</span>
+        </div>
+      </div>
+
+      <!-- Charts -->
+      <h2>Data Visualizations</h2>
+
+      <div class="chart-grid">
+
+        <!-- Chart 1: Bone metric differences -->
+        <div class="chart-card chart-full">
+          <h3>Throwing vs. Nonthrowing Arm — Bone Property Differences</h3>
+          <p class="chart-caption">Percent difference between throwing/nondominant arm and nonthrowing/dominant arm. Positive = throwing arm larger. Subject compared to age-matched controls and active MLB players. Data from pQCT at midshaft humerus.</p>
+          <div class="chart-wrapper-tall">
+            <canvas id="boneMetricsChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 2: Career Timeline -->
+        <div class="chart-card">
+          <h3>Career &amp; Bone Adaptation Timeline</h3>
+          <p class="chart-caption">Key milestones across the subject's throwing career. The adolescent growth spurt (peak periosteal apposition window) occurred after 8 years of throwing.</p>
+          <div class="chart-wrapper">
+            <canvas id="timelineChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 3: Muscle vs Bone -->
+        <div class="chart-card">
+          <h3>Muscle vs. Bone: Independence of Benefits</h3>
+          <p class="chart-caption">Despite the throwing arm having less muscle mass and cross-sectional area than the dominant arm, it retained greater bone size and estimated strength — demonstrating bone benefits independent of current muscle load.</p>
+          <div class="chart-wrapper">
+            <canvas id="muscleBoneChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 4: Lost vs Retained -->
+        <div class="chart-card chart-full">
+          <h3>What Was Lost vs. Retained After 55 Years of Detraining</h3>
+          <p class="chart-caption">Comparison of throwing arm advantage (%) in active MLB players vs. this subject at 94. Shows which skeletal benefits of early mechanical loading survived decades of retirement.</p>
+          <div class="chart-wrapper">
+            <canvas id="lostRetainedChart"></canvas>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Key Findings -->
+      <h2>Key Findings</h2>
+
+      <div class="finding-block lost">
+        <strong>LOST — Cortical Bone Mass &amp; Thickness</strong>
+        <p>Active MLB players show ~50% greater cortical BMC in their throwing arm. In the subject, this advantage had fully reversed — his throwing arm had 1.4% <em>less</em> cortical BMC than his nonthrowing arm, matching controls. Likely driven by accelerated intracortical remodeling (medullary expansion +22.1%, trabecular infiltration +9.4%).</p>
+      </div>
+
+      <div class="finding-block">
+        <strong>RETAINED — Bone Size &amp; Estimated Strength</strong>
+        <p>The throwing arm retained 14.3% greater total cross-sectional area and 15.2% greater polar moment of inertia (torsional rigidity) than the nonthrowing arm — despite the nonthrowing arm being dominant. Because bone mechanical strength scales with the fourth power of radius, distributing the same amount of bone material further from the central axis preserved meaningful strength advantages.</p>
+      </div>
+
+      <div class="finding-block">
+        <strong>MECHANISM — Periosteal vs. Endocortical Surfaces</strong>
+        <p>Age-related bone loss occurs primarily at the endocortical (inner) surface, not the periosteal (outer) surface — and the periosteal surface actually expands slightly with aging. Bone size gains deposited on the periosteal surface during youth are therefore shielded from age-related resorption, explaining why size and strength benefits persist while mass benefits do not.</p>
+      </div>
+
+      <h2>Biomechanical Significance</h2>
+      <p>This case has direct implications for bone health across the lifespan. Physical activity during growth — particularly before and during the adolescent growth spurt — preferentially deposits bone on the periosteal surface, increasing bone diameter. Even if mass is lost with aging, larger bones distribute remaining material more efficiently, maintaining fracture resistance into old age. The polar moment of inertia (a measure of torsional rigidity) scales with r⁴, meaning even modest increases in bone radius confer substantial mechanical advantages.</p>
+      <p>From a clinical standpoint, these findings reinforce that peak bone mass achieved in youth is not the only relevant metric for lifelong fracture risk — bone geometry, particularly cross-sectional size, may be equally or more important for skeletal resilience in old age.</p>
+
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 William Harris. Built with plain HTML, CSS, and JS.</p>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script>
+    const ACCENT = '#39ff14';
+    const ACCENT_DIM = 'rgba(57,255,20,0.25)';
+    const RED = '#ff4444';
+    const RED_DIM = 'rgba(255,68,68,0.25)';
+    const BLUE = '#4488ff';
+    const BLUE_DIM = 'rgba(68,136,255,0.25)';
+    const ORANGE = '#ff9944';
+    const ORANGE_DIM = 'rgba(255,153,68,0.25)';
+
+    const FONT = "'JetBrains Mono', monospace";
+    const LABEL_COLOR = '#aaa';
+    const GRID_COLOR = 'rgba(255,255,255,0.06)';
+
+    Chart.defaults.color = LABEL_COLOR;
+    Chart.defaults.font.family = FONT;
+    Chart.defaults.font.size = 11;
+
+    // ── Chart 1: Bone Metrics Grouped Bar ────────────────────────────────────
+    new Chart(document.getElementById('boneMetricsChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Cortical BMC', 'Total Cross-Sectional Area', 'Polar Moment of Inertia', 'Medullary Area'],
+        datasets: [
+          {
+            label: 'Active MLB Players',
+            data: [50.4, 22, 27, -17.1],
+            backgroundColor: BLUE_DIM,
+            borderColor: BLUE,
+            borderWidth: 1.5,
+          },
+          {
+            label: 'Age-Matched Controls (83 yr)',
+            data: [-2, -3, -3, 3],
+            backgroundColor: ORANGE_DIM,
+            borderColor: ORANGE,
+            borderWidth: 1.5,
+          },
+          {
+            label: 'Subject — 94 yr, 55 yr detraining',
+            data: [-1.4, 14.3, 15.2, 22.1],
+            backgroundColor: ACCENT_DIM,
+            borderColor: ACCENT,
+            borderWidth: 1.5,
+          },
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'top' },
+          tooltip: {
+            callbacks: {
+              label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y > 0 ? '+' : ''}${ctx.parsed.y}%`
+            }
+          }
+        },
+        scales: {
+          x: { grid: { color: GRID_COLOR }, ticks: { maxRotation: 0 } },
+          y: {
+            grid: { color: GRID_COLOR },
+            title: { display: true, text: '% difference (throwing vs. nonthrowing arm)' },
+            ticks: { callback: v => (v > 0 ? '+' : '') + v + '%' }
+          }
+        }
+      }
+    });
+
+    // ── Chart 2: Career Timeline (horizontal bar) ─────────────────────────────
+    new Chart(document.getElementById('timelineChart'), {
+      type: 'bar',
+      data: {
+        labels: [
+          'Recreational throwing',
+          'Competitive throwing',
+          'Adolescent growth spurt',
+          'Professional (MiLB/MLB)',
+          'Retirement',
+          'Study assessment',
+        ],
+        datasets: [{
+          label: 'Age',
+          data: [6, 9, 14, 18, 39, 94],
+          backgroundColor: [
+            ACCENT_DIM, ACCENT_DIM, ORANGE_DIM, BLUE_DIM, RED_DIM, ACCENT_DIM
+          ],
+          borderColor: [ACCENT, ACCENT, ORANGE, BLUE, RED, ACCENT],
+          borderWidth: 1.5,
+          borderRadius: 4,
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: { label: ctx => ` Age ${ctx.parsed.x}` }
+          }
+        },
+        scales: {
+          x: {
+            grid: { color: GRID_COLOR },
+            title: { display: true, text: 'Age (years)' },
+            min: 0, max: 100,
+          },
+          y: { grid: { color: GRID_COLOR } }
+        }
+      }
+    });
+
+    // ── Chart 3: Muscle vs Bone ───────────────────────────────────────────────
+    new Chart(document.getElementById('muscleBoneChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Arm Lean Mass (kg)', 'Muscle CSA (cm²)', 'Total Bone CSA (cm²)*', 'Torsional Rigidity (PMI)*'],
+        datasets: [
+          {
+            label: 'Throwing / Nondominant Arm',
+            data: [2.38, 23.9, null, null],
+            backgroundColor: ACCENT_DIM,
+            borderColor: ACCENT,
+            borderWidth: 1.5,
+          },
+          {
+            label: 'Nonthrowing / Dominant Arm',
+            data: [2.95, 26.7, null, null],
+            backgroundColor: BLUE_DIM,
+            borderColor: BLUE,
+            borderWidth: 1.5,
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'top' },
+          tooltip: {
+            callbacks: {
+              afterBody: (items) => {
+                if (items[0].dataIndex >= 2) return '* Throwing arm is LARGER despite less muscle';
+              }
+            }
+          }
+        },
+        scales: {
+          x: { grid: { color: GRID_COLOR }, ticks: { maxRotation: 20, font: { size: 9.5 } } },
+          y: { grid: { color: GRID_COLOR }, title: { display: true, text: 'Measured value' } }
+        }
+      }
+    });
+
+    // ── Chart 4: Lost vs Retained ────────────────────────────────────────────
+    new Chart(document.getElementById('lostRetainedChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Cortical BMC', 'Whole-Arm BMC', 'Cortical Area', 'Cortical Thickness', 'Total CSA', 'Polar Moment of Inertia'],
+        datasets: [
+          {
+            label: 'Active MLB Players (throwing advantage %)',
+            data: [50.4, 30.5, 30, 20, 22, 27],
+            backgroundColor: BLUE_DIM,
+            borderColor: BLUE,
+            borderWidth: 1.5,
+          },
+          {
+            label: 'Subject at 94 yr (throwing advantage %)',
+            data: [-1.4, -4.1, 0, 0, 14.3, 15.2],
+            backgroundColor: [RED_DIM, RED_DIM, RED_DIM, RED_DIM, ACCENT_DIM, ACCENT_DIM],
+            borderColor: [RED, RED, RED, RED, ACCENT, ACCENT],
+            borderWidth: 1.5,
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'top' },
+          tooltip: {
+            callbacks: {
+              label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y > 0 ? '+' : ''}${ctx.parsed.y}%`
+            }
+          }
+        },
+        scales: {
+          x: { grid: { color: GRID_COLOR } },
+          y: {
+            grid: { color: GRID_COLOR },
+            title: { display: true, text: '% advantage in throwing arm' },
+            ticks: { callback: v => (v > 0 ? '+' : '') + v + '%' }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
