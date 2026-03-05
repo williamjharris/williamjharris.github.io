@@ -22,40 +22,34 @@
   <nav id="navbar">
     <div class="nav-container">
       <a href="#hero" class="nav-logo" data-text="williamharris">william<span class="accent">harris</span></a>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#resume">Resume</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
     </div>
   </nav>
 
-  <!-- Hero / Terminal Intro -->
+  <!-- Hero -->
   <section id="hero">
-    <div class="terminal">
-      <div class="terminal-header">
-        <span class="terminal-dot red"></span>
-        <span class="terminal-dot yellow"></span>
-        <span class="terminal-dot green"></span>
-        <span class="terminal-title">william@portfolio ~ %</span>
-      </div>
-      <div class="terminal-body">
-        <div class="terminal-line">
-          <span class="prompt">$</span>
-          <span class="typed-text" id="typedName"></span>
-          <span class="cursor" id="cursor">_</span>
+    <div class="circ-hero">
+      <div class="circ-disc" id="circDisc">
+        <div class="circ-ring" id="circRing">
+          <svg class="circ-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <path id="circ-path" d="M 200,200 m -155,0 a 155,155 0 1,1 310,0 a 155,155 0 1,1 -310,0"/>
+            </defs>
+            <text class="circ-item" data-target="about">
+              <textPath href="#circ-path" startOffset="3%">ABOUT</textPath>
+            </text>
+            <text class="circ-item" data-target="projects">
+              <textPath href="#circ-path" startOffset="28%">PROJECTS</textPath>
+            </text>
+            <text class="circ-item" data-target="resume">
+              <textPath href="#circ-path" startOffset="53%">RESUME</textPath>
+            </text>
+            <text class="circ-item" data-target="contact">
+              <textPath href="#circ-path" startOffset="78%">CONTACT</textPath>
+            </text>
+          </svg>
         </div>
-        <div class="terminal-output" id="terminalOutput">
-          <p class="output-line hidden" data-delay="0">Undergraduate Biomedical Engineer @ CU Boulder</p>
-          <p class="output-line hidden" data-delay="200">Esteemed Scholar | Dean's List | Class of 2028</p>
-          <p class="output-line hidden" data-delay="400">Developing technologies that improve healthcare outcomes.</p>
-          <p class="output-line hidden" data-delay="600">Skilled in SOLIDWORKS, Python, and embedded systems.</p>
+        <div class="circ-center">
+          <span id="circCenterText">WELCOME</span>
         </div>
       </div>
     </div>

@@ -1,4 +1,41 @@
 // ========================================
+// HERO — CIRCULAR DISC NAV
+// ========================================
+
+(function initCircularHero() {
+  const ring = document.getElementById('circRing');
+  const centerText = document.getElementById('circCenterText');
+  if (!ring || !centerText) return;
+
+  const items = ring.querySelectorAll('.circ-item');
+
+  items.forEach(item => {
+    const target = item.getAttribute('data-target');
+    const label = item.querySelector('textPath')?.textContent?.trim() || '';
+
+    item.addEventListener('mouseenter', () => {
+      ring.style.animationPlayState = 'paused';
+      centerText.textContent = label;
+      centerText.classList.add('active');
+      items.forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+    });
+
+    item.addEventListener('mouseleave', () => {
+      ring.style.animationPlayState = 'running';
+      centerText.textContent = 'WELCOME';
+      centerText.classList.remove('active');
+      item.classList.remove('active');
+    });
+
+    item.addEventListener('click', () => {
+      const section = document.getElementById(target);
+      if (section) section.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+})();
+
+// ========================================
 // WEBGL ANIMATED BACKGROUND
 // ========================================
 
@@ -215,8 +252,79 @@ document.querySelectorAll('.book-details a').forEach(link => {
 
 document.addEventListener('click', (e) => {
   if (!e.target.closest('.container')) {
+    document.querySelectorAll('.book-details').forEach(d => {
+      d.style.transition = 'none';
+      d.style.opacity = '0';
+    });
     document.querySelectorAll('.book input[type="radio"]').forEach(input => {
       input.checked = false;
     });
+    requestAnimationFrame(() => {
+      document.querySelectorAll('.book-details').forEach(d => {
+        d.style.transition = '';
+        d.style.opacity = '';
+      });
+    });
   }
 });
+
+// ========================================
+// ROTATING NAME — cylindrical text distortion
+// ========================================
+
+(function warpNameText() {
+  const items = document.querySelectorAll('.name-item');
+  if (!items.length) return;
+
+  const fnText = 'william';
+  const lnText = 'harris';
+  const allText = fnText + lnText;
+  const N = allText.length; // 13 chars
+
+  const R = 400;       // arc radius (px) — smaller = more curved
+  const charW = 29;    // estimated char width at 3rem JetBrains Mono
+  const localPersp = 280; // close perspective for strong depth effect
+  const anglePerChar = (charW / R) * (180 / Math.PI);
+  const totalAngle = N * anglePerChar;
+  const startAngle = -totalAngle / 2;
+  const cx = 250; // center of 500px-wide cylinder
+
+  items.forEach(item => {
+    item.innerHTML = '';
+
+    // Wrapper with its own close perspective so translateZ creates real foreshortening
+    const wrapper = document.createElement('div');
+    wrapper.style.cssText = `
+      position: relative;
+      width: 500px;
+      height: 80px;
+      perspective: ${localPersp}px;
+    `;
+
+    for (let i = 0; i < N; i++) {
+      const thetaDeg = startAngle + (i + 0.5) * anglePerChar;
+      const thetaRad = thetaDeg * Math.PI / 180;
+
+      const x = R * Math.sin(thetaRad);
+      const z = R * (Math.cos(thetaRad) - 1); // 0 at center, negative at edges
+
+      const span = document.createElement('span');
+      span.textContent = allText[i];
+      span.className = i < fnText.length ? 'fn' : 'ln';
+      span.style.cssText = `
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: ${charW}px;
+        text-align: center;
+        font-size: 3rem;
+        font-weight: 700;
+        font-family: 'JetBrains Mono', monospace;
+        transform: translateX(${cx + x - charW / 2}px) translateY(-50%) translateZ(${z}px) rotateY(${-thetaDeg}deg);
+      `;
+      wrapper.appendChild(span);
+    }
+
+    item.appendChild(wrapper);
+  });
+})();
