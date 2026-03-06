@@ -1,5 +1,5 @@
 // ========================================
-// HERO — CIRCULAR DISC NAV
+// HERO - CIRCULAR DISC NAV
 // ========================================
 
 (function initCircularHero() {
@@ -138,7 +138,7 @@
 })();
 
 // ========================================
-// NAVBAR — scroll effect & mobile toggle
+// NAVBAR - scroll effect & mobile toggle
 // ========================================
 
 const navbar = document.getElementById('navbar');
@@ -149,21 +149,23 @@ window.addEventListener('scroll', () => {
   navbar.classList.toggle('scrolled', window.scrollY > 50);
 });
 
-navToggle.addEventListener('click', () => {
-  navToggle.classList.toggle('active');
-  navLinks.classList.toggle('open');
-});
-
-// Close mobile nav when a link is clicked
-navLinks.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    navToggle.classList.remove('active');
-    navLinks.classList.remove('open');
+if (navToggle) {
+  navToggle.addEventListener('click', () => {
+    navToggle.classList.toggle('active');
+    navLinks.classList.toggle('open');
   });
-});
+
+  // Close mobile nav when a link is clicked
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navToggle.classList.remove('active');
+      navLinks.classList.remove('open');
+    });
+  });
+}
 
 // ========================================
-// TERMINAL — typing effect
+// TERMINAL - typing effect
 // ========================================
 
 const typedEl = document.getElementById('typedName');
@@ -178,7 +180,7 @@ function typeCharacter() {
     charIndex++;
     setTimeout(typeCharacter, 70 + Math.random() * 40);
   } else {
-    // Typing done — reveal output lines
+    // Typing done - reveal output lines
     setTimeout(revealOutputLines, 400);
   }
 }
@@ -197,7 +199,7 @@ function revealOutputLines() {
 if (typedEl) setTimeout(typeCharacter, 600);
 
 // ========================================
-// SOCIAL LINKS — random rotation on hover
+// SOCIAL LINKS - random rotation on hover
 // ========================================
 
 document.querySelectorAll('.social-item').forEach(item => {
@@ -209,7 +211,7 @@ document.querySelectorAll('.social-item').forEach(item => {
 });
 
 // ========================================
-// SCROLL ANIMATIONS — fade in on scroll
+// SCROLL ANIMATIONS - fade in on scroll
 // ========================================
 
 const fadeElements = document.querySelectorAll('.section-title, .about-content, .resume-content, .social-links');
@@ -229,47 +231,29 @@ fadeElements.forEach(el => {
 });
 
 // ========================================
-// BOOKSHELF — click to open, click outside to close
+// BOOKSHELF - click to open, click outside to close
 // ========================================
 
-document.querySelectorAll('.container').forEach(container => {
-  container.addEventListener('click', (e) => {
-    // Don't intercept clicks on links — let them navigate
-    if (e.target.closest('a')) return;
-    const input = container.querySelector('input[type="radio"]');
-    if (input) {
-      input.checked = true;
-    }
-  });
-});
+const allContainers = document.querySelectorAll('.container');
 
-// Prevent label from swallowing link clicks inside book-details
-document.querySelectorAll('.book-details a').forEach(link => {
-  link.addEventListener('click', (e) => {
-    e.stopPropagation();
+allContainers.forEach(container => {
+  container.addEventListener('click', (e) => {
+    if (e.target.tagName === 'INPUT') return; // ignore synthetic input click from label
+    if (e.target.closest('a')) return;
+    const isOpen = container.classList.contains('is-open');
+    allContainers.forEach(c => c.classList.remove('is-open'));
+    if (!isOpen) container.classList.add('is-open');
   });
 });
 
 document.addEventListener('click', (e) => {
   if (!e.target.closest('.container')) {
-    document.querySelectorAll('.book-details').forEach(d => {
-      d.style.transition = 'none';
-      d.style.opacity = '0';
-    });
-    document.querySelectorAll('.book input[type="radio"]').forEach(input => {
-      input.checked = false;
-    });
-    requestAnimationFrame(() => {
-      document.querySelectorAll('.book-details').forEach(d => {
-        d.style.transition = '';
-        d.style.opacity = '';
-      });
-    });
+    allContainers.forEach(c => c.classList.remove('is-open'));
   }
 });
 
 // ========================================
-// ROTATING NAME — cylindrical text distortion
+// ROTATING NAME - cylindrical text distortion
 // ========================================
 
 (function warpNameText() {
@@ -281,7 +265,7 @@ document.addEventListener('click', (e) => {
   const allText = fnText + lnText;
   const N = allText.length; // 13 chars
 
-  const R = 400;       // arc radius (px) — smaller = more curved
+  const R = 400;       // arc radius (px) - smaller = more curved
   const charW = 29;    // estimated char width at 3rem JetBrains Mono
   const localPersp = 280; // close perspective for strong depth effect
   const anglePerChar = (charW / R) * (180 / Math.PI);

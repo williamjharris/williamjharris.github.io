@@ -352,7 +352,7 @@ section {
 }
 
 /* ========================================
-   HERO — CIRCULAR DISC
+   HERO - CIRCULAR DISC
    ======================================== */
 
 #hero {
@@ -592,7 +592,7 @@ section {
 }
 
 /* ========================================
-   PROJECTS — 3D BOOKSHELF
+   PROJECTS - 3D BOOKSHELF
    ======================================== */
 
 main {
@@ -623,7 +623,7 @@ main {
     transform: translateY(-10px) translateZ(calc(var(--depth) / -2));
   }
 
-  &:has(input:checked) {
+  &.is-open {
     width: calc(var(--depth) + var(--padding));
     transform: translateZ(0);
   }
@@ -702,7 +702,7 @@ main {
     opacity: 0;
   }
 
-  &:has(>input:checked) {
+  .container.is-open & {
     transform: translateZ(calc(var(--width) / -2)) rotateY(-90deg);
 
     /* left and right */
@@ -718,7 +718,7 @@ main {
 }
 
 /* Widen container when book is open to fit details */
-.container:has(input:checked) {
+.container.is-open {
   width: calc(var(--depth) + var(--padding) + 200px);
 }
 
@@ -740,7 +740,7 @@ main {
   transform: translateZ(200px);
 }
 
-.container:has(input:checked) .book-details {
+.container.is-open .book-details {
   opacity: 1;
   pointer-events: auto;
   transition: opacity 0.5s ease 0.4s;
@@ -825,7 +825,7 @@ main {
 }
 
 /* ========================================
-   CONTACT — ANIMATED SOCIAL LINKS
+   CONTACT - ANIMATED SOCIAL LINKS
    ======================================== */
 
 #contact {
